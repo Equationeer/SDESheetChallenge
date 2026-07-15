@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> distinctNumbers(vector<int>& nums, int k) {
+        unordered_map<int, int> mp;
+        vector<int> ans;
+
+        for (int i = 0; i < k; i++) {
+            mp[nums[i]]++;
+        }
+
+        ans.push_back(mp.size());
+        for (int i = k; i < nums.size(); i++) {
+
+            mp[nums[i - k]]--;
+            if (mp[nums[i - k]] == 0) {
+                mp.erase(nums[i - k]);
+            }
+
+            mp[nums[i]]++;
+
+            ans.push_back(mp.size());
+        }
+
+        return ans;
+    }
+};
